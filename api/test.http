@@ -6,7 +6,7 @@ POST http://localhost:3000/api/habits
 Content-Type: application/json
 
 {
-  "name": "Read 100 pages daily"
+  "name": "To Be Deleted"
 }
 
 ###
@@ -16,3 +16,6 @@ Content-Type: application/json
 {
   "name": "50 pushups"
 }
+
+###
+DELETE http://localhost:3000/api/habits/8

@@ -39,3 +39,14 @@ export const editHabit = async (req: Request, res: Response, next: NextFunction)
     next(error);
   }
 }
+
+// Delete a habit
+export const deleteHabit = async (req: Request, res: Response, next: NextFunction) => {
+  try {
+    const id = parseInt(req.params.id as string, 10);
+    const deletedHabit = await prisma.habit.delete({ where: { id }});
+    res.status(204).json({});
+  } catch (error) {
+    next(error);
+  }
+}
