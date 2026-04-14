@@ -8,3 +8,11 @@ Content-Type: application/json
 {
   "name": "Read 100 pages daily"
 }
+
+###
+PUT http://localhost:3000/api/habits/1
+Content-Type: application/json
+
+{
+  "name": "50 pushups"
+}

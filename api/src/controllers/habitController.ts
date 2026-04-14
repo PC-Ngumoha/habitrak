@@ -26,3 +26,16 @@ export const createHabit = async (req: Request, res: Response, next: NextFunctio
     next(error);
   }
 }
+
+// Edit a habit
+export const editHabit = async (req: Request, res: Response, next: NextFunction) => {
+  try {
+    const id = parseInt(req.params.id as string, 10);
+    console.log(id);
+    const { name } = req.body;
+    await prisma.habit.update({ where: { id }, data: { name }});
+    res.json({ message: "Updated successfully !"});
+  } catch (error) {
+    next(error);
+  }
+}
