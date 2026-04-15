@@ -7,7 +7,7 @@ import prisma from '../config/prisma';
 export const getHabits = async (req: Request, res: Response, next: NextFunction) => {
   try {
     // res.json(habits);
-    const habits = await prisma.habit.findMany();
+    const habits = await prisma.habit.findMany({ include: { completions: true }});
     res.json(habits);
   } catch (error) {
     next(error);
@@ -46,6 +46,28 @@ export const deleteHabit = async (req: Request, res: Response, next: NextFunctio
     const id = parseInt(req.params.id as string, 10);
     const deletedHabit = await prisma.habit.delete({ where: { id }});
     res.status(204).json({});
+  } catch (error) {
+    next(error);
+  }
+}
+
+// TODO: Implement feature
+export const markAsDone = async (req: Request, res: Response, next: NextFunction) => {
+  try {
+    // mark a habit as done for the day
+    const habitId = parseInt(req.params.id as string, 10);
+    const newCompletion = await prisma.completion.create({ data: {
+      habitId, date: new Date().toISOString().split("T")[0]}});
+    res.status(201).json(newCompletion);
+  } catch (error) {
+    next(error);
+  }
+}
+
+// TODO: Implement feature
+export const markAsUndone = async (req: Request, res: Response, next: NextFunction) => {
+  try {
+    // Undo mark habit as done for the day.
   } catch (error) {
     next(error);
   }

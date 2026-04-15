@@ -19,3 +19,6 @@ Content-Type: application/json
 
 ###
 DELETE http://localhost:3000/api/habits/8
+
+###
+POST http://localhost:3000/api/habits/1/complete

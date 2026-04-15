@@ -13,6 +13,16 @@ datasource db {
 }
 
 model Habit {
-  id   Int    @id @default(autoincrement())
-  name String
+  id          Int          @id @default(autoincrement())
+  name        String
+  completions Completion[]
+}
+
+model Completion {
+  habitId Int
+  date    String
+
+  habit Habit @relation(fields: [habitId], references: [id])
+
+  @@unique([habitId, date])
 }
