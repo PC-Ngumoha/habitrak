@@ -65,9 +65,13 @@ export const markAsDone = async (req: Request, res: Response, next: NextFunction
 }
 
 // TODO: Implement feature
-export const markAsUndone = async (req: Request, res: Response, next: NextFunction) => {
+export const unmarkAsDone = async (req: Request, res: Response, next: NextFunction) => {
   try {
     // Undo mark habit as done for the day.
+    const habitId = parseInt(req.params.id as string, 10);
+    const deletedCompletion = await prisma.completion.delete({
+      where: { habitId, date: new Date().toISOString().split("T")[0]}});
+    res.json(deletedCompletion);
   } catch (error) {
     next(error);
   }
