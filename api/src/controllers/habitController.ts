@@ -18,8 +18,6 @@ export const getHabits = async (req: Request, res: Response, next: NextFunction)
 export const createHabit = async (req: Request, res: Response, next: NextFunction) => {
   try {
     const { name } = req.body;
-    // const newHabit: Habit = { id: Date.now(), name };
-    // habits.push(newHabit);
     const newHabit = await prisma.habit.create({ data: { name }});
     res.status(201).json(newHabit);
   } catch (error) {
@@ -31,7 +29,6 @@ export const createHabit = async (req: Request, res: Response, next: NextFunctio
 export const editHabit = async (req: Request, res: Response, next: NextFunction) => {
   try {
     const id = parseInt(req.params.id as string, 10);
-    console.log(id);
     const { name } = req.body;
     await prisma.habit.update({ where: { id }, data: { name }});
     res.json({ message: "Updated successfully !"});
@@ -44,7 +41,7 @@ export const editHabit = async (req: Request, res: Response, next: NextFunction)
 export const deleteHabit = async (req: Request, res: Response, next: NextFunction) => {
   try {
     const id = parseInt(req.params.id as string, 10);
-    const deletedHabit = await prisma.habit.delete({ where: { id }});
+    await prisma.habit.delete({ where: { id }});
     res.status(204).json({});
   } catch (error) {
     next(error);
@@ -69,9 +66,9 @@ export const unmarkAsDone = async (req: Request, res: Response, next: NextFuncti
   try {
     // Undo mark habit as done for the day.
     const habitId = parseInt(req.params.id as string, 10);
-    const deletedCompletion = await prisma.completion.delete({
+    await prisma.completion.delete({
       where: { habitId, date: new Date().toISOString().split("T")[0]}});
-    res.json(deletedCompletion);
+    res.status(204).json({});
   } catch (error) {
     next(error);
   }
