@@ -12,6 +12,14 @@ datasource db {
   provider = "sqlite"
 }
 
+model User {
+  id        String @id @default(uuid())
+  firstName String
+  lastName  String
+  email     String
+  token     String
+}
+
 model Habit {
   id          Int          @id @default(autoincrement())
   name        String
