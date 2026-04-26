@@ -20,12 +20,18 @@ model User {
   email     String @unique
   password  String
   token     String
+
+  habits Habit[]
 }
 
 model Habit {
-  id          Int          @id @default(autoincrement())
-  name        String
+  id     Int    @id @default(autoincrement())
+  name   String
+  userId String
+
   completions Completion[]
+
+  user User @relation(fields: [userId], references: [id])
 }
 
 model Completion {

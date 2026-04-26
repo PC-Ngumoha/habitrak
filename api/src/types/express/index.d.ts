@@ -1,10 +1,4 @@
-
-import { JwtPayload } from "jsonwebtoken"
-
-// interface CustomJwtPayload extends JwtPayload {
-//   user_id: string,
-//   email: string,
-// }
+import { CustomJwtPayload } from ".."
 
 // declare namespace Express {
 //   export interface Request {
@@ -14,7 +8,7 @@ import { JwtPayload } from "jsonwebtoken"
 
 declare module 'express-serve-static-core' {
   export interface Request {
-    user ?: string | JwtPayload,
+    user ?: CustomJwtPayload,
   }
 }
 

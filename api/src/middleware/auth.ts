@@ -2,6 +2,7 @@
  * auth.ts
  */
 import { Request, Response, NextFunction } from "express"
+import { CustomJwtPayload } from "../types";
 import jwt from 'jsonwebtoken';
 
 const verifyToken = (req: Request, res: Response, next: NextFunction) => {
@@ -19,7 +20,7 @@ const verifyToken = (req: Request, res: Response, next: NextFunction) => {
   }
 
   try {
-    const decoded = jwt.verify(token as string, process.env.JWT_SECRET as jwt.Secret)
+    const decoded = jwt.verify(token as string, process.env.JWT_SECRET as jwt.Secret) as CustomJwtPayload;
     req.user = decoded;
     console.log(decoded);
     next();
