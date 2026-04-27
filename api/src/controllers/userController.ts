@@ -107,3 +107,10 @@ class UserController {
 }
 
 export default UserController;
+
+/**
+ * BUGS:
+ * - When the user logs in a second time, the previous token should be revoked
+ *   if it was still acceptable.
+ *    Possible fix: Reduce the lifespan of the access token.
+ */
