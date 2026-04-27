@@ -9,7 +9,7 @@ router.post('/', auth, createHabit);
 router.put('/:id', auth, editHabit);
 router.delete('/:id', auth, deleteHabit);
 
-router.post('/:id/complete', markAsDone);
-router.delete('/:id/complete', unmarkAsDone);
+router.post('/:id/complete', auth, markAsDone);
+router.delete('/:id/complete', auth, unmarkAsDone);
 
 export default router;
